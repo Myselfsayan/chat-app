@@ -12,7 +12,8 @@ const ChatContainer = ({ selectedUser, setSelectedUser }) => {
       if (scrollEnd.current) {
         scrollEnd.current.scrollIntoView({ behavior: "smooth" });
       }
-    }, []);
+    }, [messagesDummyData]);
+    // now in dependency array we have messagesDummyData, so whenever it changes, the useEffect will run and scroll to the end of the chat.
 
   return selectedUser ? (
     <div className="h-full overflow-scroll relative backdrop-blur-lg">
@@ -65,6 +66,7 @@ const ChatContainer = ({ selectedUser, setSelectedUser }) => {
                   msg.senderId === "680f50e4f10f3cd28382ecf9"
                     ? "rounded-br-none"
                     : "rounded-bl-none"
+                    // Changes shape of chat bubble depending on sender
                 }`}
               >
                 {msg.text}
