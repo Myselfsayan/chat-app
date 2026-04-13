@@ -20,7 +20,7 @@ app.use("/api/v1/status", ( req , res ) => res.send("Server is up and running !!
 import userRouter from './routes/user.routes.js'
 
 //Routes Declearation
-app.use("/api/v1/auth", userRouter)
+app.use("/api/v1/users", userRouter)
 
 
 

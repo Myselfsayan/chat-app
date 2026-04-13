@@ -30,16 +30,16 @@ const generateAccessandRefreshTokens = async(userId) => {
 const registerUser = asyncHandler(async (req, res) => {
 
     // ================= INPUT =================
-    const { userName, fullName, email, password, bio } = req.body;
+    const { fullName, email, password, bio } = req.body;
 
     // ================= VALIDATION =================
-    if ([userName, fullName, email, password].some((field) => field?.trim() === "")) {
+    if ([fullName, email, password].some((field) => field?.trim() === "")) {
         throw new ApiError(400, "All fields are required");
     }
 
     // ================= CHECK EXISTING USER =================
     const existedUser = await User.findOne({
-        $or: [{ email }, { userName }]
+        $or: [{ email }]
     });
 
     if (existedUser) {
@@ -63,7 +63,6 @@ const registerUser = asyncHandler(async (req, res) => {
     // ================= CREATE USER =================
     const user = await User.create({
         fullName,
-        userName: userName.toLowerCase(),
         email: email.toLowerCase(),
         password,
         avatar: avatar.url,
