@@ -24,4 +24,13 @@ try {
 }
 };
 
-export { uploadOnCloudinary };
+    const deleteFromCloudinary = async (publicId) => {
+    try {
+        if (!publicId) return;
+        await cloudinary.uploader.destroy(publicId);
+    } catch (error) {
+        return null;
+    }
+}
+
+export { uploadOnCloudinary, deleteFromCloudinary };
