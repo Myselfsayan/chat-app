@@ -118,3 +118,5 @@ const markMessageAsSeen = asyncHandler(async (req, res) => {
         )
     );
 });
+
+export {getUsersForSidebar,getMessages,markMessageAsSeen}
