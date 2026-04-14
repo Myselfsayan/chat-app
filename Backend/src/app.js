@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import http from "http"
+import {messageRouter} from "./routes/message.routes.js"
 
 const app = express()
 const server = http.createServer(app)
@@ -21,6 +22,7 @@ import userRouter from './routes/user.routes.js'
 
 //Routes Declearation
 app.use("/api/v1/users", userRouter)
+app.use("/api/v1/messages", messageRouter)
 
 
 
