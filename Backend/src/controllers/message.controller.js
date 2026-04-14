@@ -119,4 +119,55 @@ const markMessageAsSeen = asyncHandler(async (req, res) => {
     );
 });
 
-export {getUsersForSidebar,getMessages,markMessageAsSeen}
+const sendMessage = asyncHandler(async (req, res) => {
+
+    const { message } = req.body;   // text
+    const receiverId = req.params.id;
+    const senderId = req.user._id;
+
+    // ================= VALIDATION =================
+    if (!receiverId || !mongoose.Types.ObjectId.isValid(receiverId)) {
+        throw new ApiError(400, "Invalid receiver ID");
+    }
+
+    if (!message && !req.file) {
+        throw new ApiError(400, "Message or image is required");
+    }
+
+    let media = {
+        url: "",
+        public_id: ""
+    };
+
+    // ================= IMAGE UPLOAD =================
+    if (req.file?.path) {
+        const uploaded = await uploadOnCloudinary(req.file.path);
+
+        if (!uploaded) {
+        throw new ApiError(400, "Image upload failed");
+        }
+
+        media.url = uploaded.url;
+        media.public_id = uploaded.public_id;
+    }
+
+    // ================= CREATE MESSAGE =================
+    const newMessage = await Message.create({
+        sender: senderId,
+        receiver: receiverId,
+        message: message || "",
+        media,
+        isSeen: false
+    });
+
+    // ================= RESPONSE =================
+    return res.status(201).json(
+        new ApiResponse(
+        201,
+        newMessage,
+        "Message sent successfully"
+        )
+    );
+});
+
+export {getUsersForSidebar,getMessages,markMessageAsSeen,sendMessage}
