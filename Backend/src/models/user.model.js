@@ -53,12 +53,6 @@ const userSchema = new Schema(
       type: String // for realtime socket connection
     },
 
-    contacts: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "User"
-      }
-    ],
 
     refreshToken: {
       type: String

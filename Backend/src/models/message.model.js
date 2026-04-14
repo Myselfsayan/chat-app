@@ -40,11 +40,6 @@ const messageSchema = new Schema(
         default: false
     },
 
-    // Soft delete (optional)
-    isDeleted: {
-        type: Boolean,
-        default: false
-    }
 
     },
     {
