@@ -1,31 +1,29 @@
-import express from "express"
-import cors from "cors"
-import cookieParser from "cookie-parser"
-import http from "http"
-import {messageRouter} from "./routes/message.routes.js"
+import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 
-const app = express()
-const server = http.createServer(app)
+const app = express();
 
+// ================= MIDDLEWARE =================
 app.use(cors({
-    origin : process.env.CORS_ORIGIN,
-    credentials : true
-}))
+    origin: process.env.CORS_ORIGIN,
+    credentials: true
+}));
 
-app.use(express.json({limit : "4mb"}))
-app.use(express.urlencoded({extended : true , limit : "16kb"}))
-app.use(express.static("public"))
-app.use(cookieParser())
+app.use(express.json({ limit: "4mb" }));
+app.use(express.urlencoded({ extended: true, limit: "16kb" }));
+app.use(express.static("public"));
+app.use(cookieParser());
 
-app.use("/api/v1/status", ( req , res ) => res.send("Server is up and running !!!"))
-import userRouter from './routes/user.routes.js'
+// ================= ROUTES =================
+app.use("/api/v1/status", (req, res) =>
+    res.send("Bg mota !!!")
+);
 
-//Routes Declearation
-app.use("/api/v1/users", userRouter)
-app.use("/api/v1/messages", messageRouter)
+import userRouter from "./routes/user.routes.js";
+import  messageRouter  from "./routes/message.routes.js";
 
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/messages", messageRouter);
 
-
-
-
-export {app}
+export { app };

@@ -1,5 +1,6 @@
-import { getMessages, getUsersForSidebar,markMessageAsSeen } from "../controllers/message.controller";
-import { verifyJWT } from "../middlewares/auth.middleware";
+import { getMessages, getUsersForSidebar,markMessageAsSeen } from "../controllers/message.controller.js";
+import { verifyJWT } from "../middlewares/auth.middleware.js";
+import express from "express";
 
 const messageRouter = express.Router();
 messageRouter.get("/users",verifyJWT,getUsersForSidebar)
