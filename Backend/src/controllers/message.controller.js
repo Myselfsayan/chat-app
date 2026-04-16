@@ -5,6 +5,7 @@ import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
 import jwt from "jsonwebtoken"
 import { Message } from '../models/message.model.js'
+import {io,userSocketMap} from '../socket/socket.js'
 
 const getUsersForSidebar = asyncHandler(async(req,res)=>{
     const userId = req.user._id
@@ -159,6 +160,15 @@ const sendMessage = asyncHandler(async (req, res) => {
         media,
         isSeen: false
     });
+    // ================= SOCKET EMIT =================
+    const io = getIO();
+
+    const receiverSocketId = userSocketMap[receiverId];
+
+    if (receiverSocketId) {
+        io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+
 
     // ================= RESPONSE =================
     return res.status(201).json(

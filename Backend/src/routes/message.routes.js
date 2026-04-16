@@ -1,4 +1,4 @@
-import { getMessages, getUsersForSidebar,markMessageAsSeen } from "../controllers/message.controller.js";
+import { getMessages, getUsersForSidebar,markMessageAsSeen ,sendMessage } from "../controllers/message.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 import express from "express";
 
