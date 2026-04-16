@@ -17,7 +17,7 @@ app.use(cookieParser());
 
 // ================= ROUTES =================
 app.use("/api/v1/status", (req, res) =>
-    res.send("Bg mota !!!")
+    res.send("  Server is ready !!!")
 );
 
 import userRouter from "./routes/user.routes.js";
