@@ -16,14 +16,16 @@ app.use(express.static("public"));
 app.use(cookieParser());
 
 // ================= ROUTES =================
+
 app.use("/api/v1/status", (req, res) =>
     res.send("  Server is ready !!!")
 );
 
+
 import userRouter from "./routes/user.routes.js";
 import  messageRouter  from "./routes/message.routes.js";
 
-app.use("/api/v1/users", userRouter);
+app.use("/api/v1/auth", userRouter);
 app.use("/api/v1/messages", messageRouter);
 
 export { app };

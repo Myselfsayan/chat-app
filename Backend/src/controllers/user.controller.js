@@ -277,6 +277,13 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
         throw new ApiError(401,error?.message || "Invalid refresh token")
     }
 })
+// ================= CHECK AUTH CONTROLLER =================
+const checkAuth = (req, res) => {
+    return res.status(200).json({
+        success: true,
+        user: req.user,
+    });
+};
 
 export {
     registerUser,
@@ -284,5 +291,6 @@ export {
     logoutUser,
     refreshAccessToken,
     updateAccountDetails,
-    updateUserAvatar
+    updateUserAvatar,
+    checkAuth
 }
