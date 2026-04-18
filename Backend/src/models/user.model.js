@@ -28,9 +28,9 @@ const userSchema = new Schema(
     },
 
     avatar: {
-      type: String,
-      default: ""
-    },
+    url: String,
+    public_id: String
+  },
 
     bio: {
       type: String,

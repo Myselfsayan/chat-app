@@ -1,16 +1,19 @@
 import React from 'react'
 import assets from '../assets/assets'
 import { imagesDummyData } from '../assets/assets'
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext.js'
 
 
 const RightSidebar = ({ selectedUser }) => {
+    const { logout } = useContext(AuthContext);
     if (!selectedUser) return null;
 
     return (
         <div
         className={`bg-[#8185B2]/10 text-white w-full relative overflow-y-scroll ${
-            selectedUser ? "max-md:hidden" : ""
-        }`}
+            selectedUser} ? "max-md:hidden" : ""`
+        }
         >
             <div className="pt-16 flex flex-col items-center gap-2 text-xs font-light mx-auto">
                 {/* Profile Image */}
@@ -54,6 +57,8 @@ const RightSidebar = ({ selectedUser }) => {
                         bg-gradient-to-r from-purple-400 to-violet-600 text-white 
                         border-none text-sm font-light py-2 px-20 rounded-full 
                         cursor-pointer"
+                        onClick={logout}
+            
             >
             Logout
             </button>
@@ -61,4 +66,4 @@ const RightSidebar = ({ selectedUser }) => {
     );
 };
 
-export default RightSidebar
+export default RightSidebar;

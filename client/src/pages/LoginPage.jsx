@@ -1,23 +1,39 @@
 import React  from "react";
 import assets from "../assets/assets";
+import { AuthContext } from "../context/AuthContext.js";
+import { useState } from "react";
+import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
+
 
 
 
 function LoginPage() {
-  const [currState, setCurrState] = React.useState("Sign up");
-  const [fullName, setFullName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [bio, setBio] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [isDataSubmitted, setIsDataSubmitted] = React.useState(false);
+  const [currState, setCurrState] = useState("Sign up");
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] =useState("");
+  const [bio, setBio] = useState("");
+  const [password, setPassword] = useState("");
+  const [isDataSubmitted, setIsDataSubmitted] = useState(false);
 
-  const onSubmitHandler = (e) => {
+  const { login } = useContext(AuthContext);
+
+  
+
+  //const navigate = useNavigate();
+
+
+  
+
+  const onSubmitHandler = async (e) => {
     e.preventDefault();
-    if(currState === "Sign up" && !isDataSubmitted){
+    if (currState === "Sign up" && !isDataSubmitted) {
       setIsDataSubmitted(true);
       return;
     }
-  }
+    login((currState==='Sign up'?'register':'login'), { fullName, email, password, bio });
+};
   return (
   <div className="min-h-screen bg-cover bg-center flex items-center justify-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-2xl">
   
@@ -54,6 +70,7 @@ function LoginPage() {
           className="p-2 border border-gray-500 rounded-md focus:outline-none"
         />
       )}
+      
       {!isDataSubmitted && (
       <>
         <input
@@ -107,6 +124,7 @@ function LoginPage() {
             onClick={() => {
               setCurrState("Login");
               setIsDataSubmitted(false);
+              
             }}
             className="font-medium text-violet-500 cursor-pointer">
               Login here
