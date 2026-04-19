@@ -1,0 +1,36 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow-blue" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-teal" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="3.5" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <linearGradient id="blue-grad" x1="30" y1="20" x2="120" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#5B9DFF"/>
+      <stop offset="100%" stop-color="#00CFFF"/>
+    </linearGradient>
+    <linearGradient id="teal-grad" x1="80" y1="80" x2="170" y2="170" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#00CFFF"/>
+      <stop offset="100%" stop-color="#00FFB2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Large blue chat bubble (top-left) -->
+  <rect x="18" y="18" width="110" height="82" rx="18" ry="18"
+    fill="none" stroke="url(#blue-grad)" stroke-width="4"
+    filter="url(#glow-blue)"/>
+  <!-- Tail for blue bubble -->
+  <path d="M42 100 L30 118 L58 100" fill="none" stroke="url(#blue-grad)" stroke-width="4"
+    stroke-linejoin="round" filter="url(#glow-blue)"/>
+
+  <!-- Small teal chat bubble (bottom-right) -->
+  <rect x="82" y="90" width="100" height="74" rx="16" ry="16"
+    fill="none" stroke="url(#teal-grad)" stroke-width="3.5"
+    filter="url(#glow-teal)"/>
+  <!-- Tail for teal bubble -->
+  <path d="M158 164 L170 182 L144 164" fill="none" stroke="url(#teal-grad)" stroke-width="3.5"
+    stroke-linejoin="round" filter="url(#glow-teal)"/>
+</svg>

@@ -2,11 +2,42 @@
 
 @import "tailwindcss";
 
-*{
+@theme {
+  --color-brand-primary: #7C5CFF;
+  --color-brand-secondary: #5B9DFF;
+  --color-brand-bg: #0B0B0F;
+  --color-brand-surface: #12121A;
+  --color-brand-sidebar: #0E0E16;
+  --color-brand-border: #1F1F2E;
+  --color-brand-text: #EAEAF0;
+  --color-brand-muted: #9CA3AF;
+}
+
+* {
   font-family: "Outfit", sans-serif;
 }
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
   display: none;
 }
+
+/* Gradient text utility */
+.text-brand-gradient {
+  background: linear-gradient(135deg, #7C5CFF, #5B9DFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Soft glow utilities */
+.glow-primary {
+  box-shadow: 0 0 18px 2px rgba(124, 92, 255, 0.25);
+}
+.glow-primary-sm {
+  box-shadow: 0 0 10px 1px rgba(124, 92, 255, 0.18);
+}
+.glow-btn {
+  box-shadow: 0 0 14px 2px rgba(91, 157, 255, 0.22);
+}
+
 

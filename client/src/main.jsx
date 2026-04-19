@@ -3,12 +3,14 @@ import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import AuthProvider  from "./context/AuthProvider.jsx";
+import ChatProvider  from "./context/ChatProvider.jsx";
 
 createRoot(document.getElementById('root')).render(
   <BrowserRouter>
-    
     <AuthProvider>
-      <App />
+      <ChatProvider>
+        <App />
+      </ChatProvider>
     </AuthProvider>
   </BrowserRouter>,
 )

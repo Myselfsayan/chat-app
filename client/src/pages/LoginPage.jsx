@@ -7,7 +7,6 @@ import { useContext } from "react";
 
 
 
-
 function LoginPage() {
   const [currState, setCurrState] = useState("Sign up");
   const [fullName, setFullName] = useState("");
@@ -34,26 +33,30 @@ function LoginPage() {
     login((currState==='Sign up'?'register':'login'), { fullName, email, password, bio });
 };
   return (
-  <div className="min-h-screen bg-cover bg-center flex items-center justify-center gap-8 sm:justify-evenly max-sm:flex-col backdrop-blur-2xl">
+  <div className="min-h-screen bg-brand-bg flex items-center justify-center gap-8 sm:justify-evenly max-sm:flex-col">
   
   {/* -------- left -------- */}
-  <img
-    src={assets.logo_big}
-    alt=""
-    className="w-[min(30vw,250px)]"
-  />
+  <div className="flex flex-col items-center gap-3 max-sm:hidden">
+    <img
+      src={assets.convolink_logo}
+      alt="ConvoLink"
+      className="w-[min(28vw,220px)] drop-shadow-[0_0_24px_rgba(91,157,255,0.5)]"
+    />
+    <p className="text-2xl font-bold tracking-wide text-brand-text">ConvoLink</p>
+    <p className="text-brand-muted text-sm">Chat anytime, anywhere</p>
+  </div>
 
   {/* -------- right -------- */}
-    <form onSubmit={onSubmitHandler} className="border-2 bg-white/8 text-white border-gray-500 p-6 flex flex-col gap-6 rounded-lg shadow-lg">
+    <form onSubmit={onSubmitHandler} className="border border-brand-border bg-brand-surface text-brand-text p-6 flex flex-col gap-6 rounded-xl shadow-2xl glow-primary-sm">
     
-      <h2 className="font-medium text-2xl flex justify-between items-center">
+      <h2 className="font-semibold text-2xl flex justify-between items-center text-brand-text">
         {currState}
         {
           isDataSubmitted && <img
           onClick={()=>{setIsDataSubmitted(false)}}
           src={assets.arrow_icon}
           alt=""
-          className="w-5 cursor-pointer"
+          className="w-5 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200"
           />
         }
         
@@ -66,7 +69,7 @@ function LoginPage() {
           type="text"
           placeholder="Full Name"
           required
-          className="p-2 border border-gray-500 rounded-md focus:outline-none"
+          className="p-2.5 bg-brand-sidebar border border-brand-border rounded-lg text-brand-text placeholder-brand-muted outline-none focus:border-brand-primary focus:shadow-[0_0_0_2px_rgba(124,92,255,0.15)] transition-all duration-200"
         />
       )}
       
@@ -78,7 +81,7 @@ function LoginPage() {
           required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="p-2.5 bg-brand-sidebar border border-brand-border rounded-lg text-brand-text placeholder-brand-muted outline-none focus:border-brand-primary focus:shadow-[0_0_0_2px_rgba(124,92,255,0.15)] transition-all duration-200"
         />
         <input
           type="password"
@@ -86,7 +89,7 @@ function LoginPage() {
           required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="p-2.5 bg-brand-sidebar border border-brand-border rounded-lg text-brand-text placeholder-brand-muted outline-none focus:border-brand-primary focus:shadow-[0_0_0_2px_rgba(124,92,255,0.15)] transition-all duration-200"
         />
       </>
       )}
@@ -98,26 +101,26 @@ function LoginPage() {
           required
           value={bio}
           onChange={(e) => setBio(e.target.value)}
-          className="p-2 border border-gray-500 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+          className="p-2.5 bg-brand-sidebar border border-brand-border rounded-lg text-brand-text placeholder-brand-muted outline-none focus:border-brand-primary focus:shadow-[0_0_0_2px_rgba(124,92,255,0.15)] transition-all duration-200 resize-none"
         />
       )}
       
 
       <button
         type="submit"
-        className="py-3 bg-gradient-to-r from-purple-400 to-violet-600 text-white rounded-md cursor-pointer"
+        className="py-3 bg-gradient-to-r from-brand-primary to-brand-secondary text-white rounded-lg cursor-pointer font-medium hover:opacity-90 hover:glow-btn glow-btn transition-all duration-200"
       >
         {currState === "Sign up" ? "Create Account" : "Login Now"}
       </button>
 
-      <div className="flex items-center gap-2 text-sm text-gray-500">
-        <input type="checkbox" />
-        <p>Agree to the terms of use & privacy policy.</p>
+      <div className="flex items-center gap-2 text-sm text-brand-muted">
+        <input type="checkbox" className="accent-brand-primary" />
+        <p>Agree to the terms of use &amp; privacy policy.</p>
       </div>
 
       <div className="flex flex-col gap-2">
         {currState === "Sign up" ? (
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-brand-muted">
             Already have an account?{" "}
             <span 
             onClick={() => {
@@ -125,19 +128,19 @@ function LoginPage() {
               setIsDataSubmitted(false);
               
             }}
-            className="font-medium text-violet-500 cursor-pointer">
+            className="font-semibold text-brand-primary cursor-pointer hover:text-brand-secondary transition-colors duration-200">
               Login here
             </span>
           </p>
         ) : (
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-brand-muted">
             Create an account{" "}
             <span 
             onClick={() => {
               setCurrState("Sign up");
               setIsDataSubmitted(false);
             }}
-            className="font-medium text-violet-500 cursor-pointer">
+            className="font-semibold text-brand-primary cursor-pointer hover:text-brand-secondary transition-colors duration-200">
               Click here
             </span>
           </p>

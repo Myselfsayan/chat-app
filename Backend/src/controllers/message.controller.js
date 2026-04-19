@@ -5,7 +5,9 @@ import {uploadOnCloudinary} from '../utils/cloudinary.js'
 import { ApiResponse } from '../utils/ApiResponse.js'
 import jwt from "jsonwebtoken"
 import { Message } from '../models/message.model.js'
-import {io,userSocketMap} from '../socket/socket.js'
+import {getIO,userSocketMap} from '../socket/socket.js'
+import mongoose from 'mongoose'
+
 
 const getUsersForSidebar = asyncHandler(async(req,res)=>{
     const userId = req.user._id
@@ -24,8 +26,8 @@ const getUsersForSidebar = asyncHandler(async(req,res)=>{
         {
             $group : {
                 _id : '$sender',
-                count : {$sum : 1}   //They exist only in result ✔
-                                    //Not stored in DB ❌
+                count : {$sum : 1}   //They exist only in result 
+                                    //Not stored in DB 
             }
         }
     ])
@@ -53,7 +55,12 @@ const getUsersForSidebar = asyncHandler(async(req,res)=>{
 const getMessages = asyncHandler(async(req,res)=>{
     // We fetch conversation using a bidirectional query with $or to include both sender and receiver messages.”
 
-    const {receiverId} = req.params
+
+
+    const receiverId = req.params.id?.trim();
+    // console.log("RAW ID 👉", receiverId);
+    // console.log("TYPE 👉", typeof receiverId);
+    // console.log("LENGTH 👉", receiverId?.length);
     const senderId = req.user._id
     if(!receiverId || !mongoose.Types.ObjectId.isValid(receiverId)){
         throw new ApiError(400,"Invalid receiver ID")
@@ -64,8 +71,9 @@ const getMessages = asyncHandler(async(req,res)=>{
             {sender : receiverId , receiver : senderId}
         ]
     })
-    .sort({createdAt : -1})
+    .sort({createdAt : 1})
     .select("-__v")
+
 
       // ================= MARK AS SEEN =================
     await Message.updateMany(
@@ -122,19 +130,21 @@ const markMessageAsSeen = asyncHandler(async (req, res) => {
 
 const sendMessage = asyncHandler(async (req, res) => {
 
-    const { message } = req.body;   // text
-    const receiverId = req.params.id;
+    const message = req.body?.message || "";
+    const receiverId = req.params.id?.trim();  // ✅ correct
     const senderId = req.user._id;
+    
 
     // ================= VALIDATION =================
     if (!receiverId || !mongoose.Types.ObjectId.isValid(receiverId)) {
         throw new ApiError(400, "Invalid receiver ID");
     }
 
-    if (!message && !req.file) {
-        throw new ApiError(400, "Message or image is required");
-    }
-
+    if (!req.file && (!message || message.trim() === "")) {
+  console.log("❌ VALIDATION FAILED", { message, file: req.file });
+  throw new ApiError(400, "Message or image is required");
+}
+    
     let media = {
         url: "",
         public_id: ""
@@ -148,7 +158,7 @@ const sendMessage = asyncHandler(async (req, res) => {
         throw new ApiError(400, "Image upload failed");
         }
 
-        media.url = uploaded.url;
+        media.url = uploaded.secure_url ;
         media.public_id = uploaded.public_id;
     }
 

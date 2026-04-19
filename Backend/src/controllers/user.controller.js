@@ -231,10 +231,9 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     }
 
     // ✅ STEP 2: delete old avatar if exists
-    if (existingUser.avatar) {
-        const publicId = existingUser.avatar.split("/").pop().split(".")[0];
-        await deleteFromCloudinary(publicId);
-    }
+    if (existingUser.avatar?.public_id) {
+    await deleteFromCloudinary(existingUser.avatar.public_id);
+}
 
     // ✅ STEP 3: upload new avatar
     const avatar = await uploadOnCloudinary(avatarLocalPath);

@@ -66,19 +66,27 @@ const AuthProvider = ({ children }) => {
   };
   // ================= LOGOUT FUNCTION =================
   const logout = async () => {
-    
-      // ✅ Clear frontend state
-      localStorage.removeItem("token");
-      setToken(null);
-      setAuthUser(null);
-      setOnlineUsers([]);
+  try {
+    // Call backend to clear cookies
+    await axios.post("/api/v1/auth/logout");
 
-      // ✅ Remove axios header
-      axios.defaults.headers.common["token"] = null;
-      toast.success("Logged out successfully");
-      socket.disconnect();
-      console.error(error);
-    }
+    // Clear frontend state
+    setAuthUser(null);
+    setOnlineUsers([]);
+
+    // Optional: remove legacy token usage (if still present)
+    localStorage.removeItem("token");
+    setToken(null);
+    delete axios.defaults.headers.common["token"];
+
+    // Disconnect socket safely
+    socket?.disconnect();
+
+    toast.success("Logged out successfully");
+  } catch (error) {
+    toast.error(error?.response?.data?.message || "Logout failed");
+  }
+};
       // ================= UPDATE ACCOUNT =================
   const updateAccount = async (body) => {
       try {
@@ -103,13 +111,9 @@ const AuthProvider = ({ children }) => {
           const { data } = await axios.patch(
           "/api/v1/auth/update-avatar",
           formData,
-          {
-              headers: {
-              "Content-Type": "multipart/form-data",
-              },
-          }
+          { withCredentials: true } // if you use cookies
           );
-
+          //console.log("authUser:", authUser);
           if (data?.success) {
           setAuthUser(data.data);
           toast.success(data.message);
