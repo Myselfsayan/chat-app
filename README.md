@@ -207,7 +207,18 @@ Message.aggregate([
 
 ## 📸 Screenshots
 
-> _Add screenshots of your app here_
+### 🔐 Sign Up Page
+![Sign Up](./screenshots/signup.png)
+
+---
+
+### 💬 Chat Interface
+![Chat Interface](./screenshots/chat.png)
+
+---
+
+### 👤 Profile Details
+![Profile Details](./screenshots/profile.png)
 
 ---
 
