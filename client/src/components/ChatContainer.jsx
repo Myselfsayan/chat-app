@@ -163,6 +163,7 @@ console.log("✅ sendMessage FINISHED");
             </div>
 
               <img
+              onClick={handleSendMessage}
                 src={assets.send_button}
                 alt=""
                 className="w-7 cursor-pointer opacity-80 hover:opacity-100 hover:scale-110 transition-all duration-200"
