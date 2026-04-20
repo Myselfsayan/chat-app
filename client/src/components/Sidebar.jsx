@@ -31,14 +31,40 @@ function Sidebar() {
                     <img src={assets.convolink_logo} alt="ConvoLink" className='w-8 h-8 drop-shadow-[0_0_8px_rgba(91,157,255,0.7)]' />
                     <span className="text-brand-text font-bold text-lg tracking-wide">ConvoLink</span>
                 </div>
-                    <div className='relative py-2 group'>
-                        <img src={assets.menu_icon} onClick={() => setShowMenu(prev => !prev)} alt="logo" className='max-h-5 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200' />
-                        <div className="absolute top-full right-0 z-20 w-32 p-5 rounded-lg bg-brand-surface border border-brand-border text-brand-text shadow-xl hidden group-hover:block">
-                            <p onClick={()=>navigate('/profile')} className="cursor-pointer text-sm text-brand-muted hover:text-brand-text transition-colors duration-200">Edit Profile</p>
-                            <hr className="my-2 border-t border-brand-border" />
-                            <p onClick={logout} className="cursor-pointer text-sm text-brand-muted hover:text-brand-text transition-colors duration-200">Logout</p>
-                        </div>
-                    </div>
+                    <div className="relative py-2">
+  <img
+    src={assets.menu_icon}
+    onClick={() => setShowMenu(prev => !prev)}
+    alt="menu"
+    className="max-h-5 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200"
+  />
+
+  {showMenu && (
+    <div className="absolute top-full right-0 z-20 w-32 p-5 rounded-lg bg-brand-surface border border-brand-border text-brand-text shadow-xl">
+      <p
+        onClick={() => {
+          navigate('/profile');
+          setShowMenu(false);
+        }}
+        className="cursor-pointer text-sm text-brand-muted hover:text-brand-text transition-colors duration-200"
+      >
+        Edit Profile
+      </p>
+
+      <hr className="my-2 border-t border-brand-border" />
+
+      <p
+        onClick={() => {
+          logout();
+          setShowMenu(false);
+        }}
+        className="cursor-pointer text-sm text-brand-muted hover:text-brand-text transition-colors duration-200"
+      >
+        Logout
+      </p>
+    </div>
+  )}
+</div>
                 </div>
                 {/* ****************  Search Box  ********************************** */}
                 <div className="bg-brand-surface border border-brand-border rounded-full flex items-center gap-2 py-3 px-4 mt-5 focus-within:border-brand-primary focus-within:glow-primary-sm transition-all duration-200">
