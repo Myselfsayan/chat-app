@@ -12,6 +12,7 @@ function Sidebar() {
     const { logout ,onlineUsers } = useContext(AuthContext);
     const navigate = useNavigate()
     const [input, setInput] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
     const filteredUsers = input
         ?users.filter((user) =>
             user.fullName.toLowerCase().includes(input.toLowerCase())
@@ -31,7 +32,7 @@ function Sidebar() {
                     <span className="text-brand-text font-bold text-lg tracking-wide">ConvoLink</span>
                 </div>
                     <div className='relative py-2 group'>
-                        <img src={assets.menu_icon} alt="logo" className='max-h-5 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200' />
+                        <img src={assets.menu_icon} onClick={() => setShowMenu(prev => !prev)} alt="logo" className='max-h-5 cursor-pointer opacity-70 hover:opacity-100 transition-opacity duration-200' />
                         <div className="absolute top-full right-0 z-20 w-32 p-5 rounded-lg bg-brand-surface border border-brand-border text-brand-text shadow-xl hidden group-hover:block">
                             <p onClick={()=>navigate('/profile')} className="cursor-pointer text-sm text-brand-muted hover:text-brand-text transition-colors duration-200">Edit Profile</p>
                             <hr className="my-2 border-t border-brand-border" />
