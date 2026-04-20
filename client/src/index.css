@@ -40,4 +40,13 @@
   box-shadow: 0 0 14px 2px rgba(91, 157, 255, 0.22);
 }
 
+/* Outer background — visible gradient + radial brand glows */
+.bg-outer-glow {
+  background:
+    radial-gradient(ellipse 65% 55% at 15% 20%, rgba(124, 92, 255, 0.15) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 50% at 85% 80%, rgba(91, 157, 255, 0.10) 0%, transparent 65%),
+    linear-gradient(135deg, #111827 0%, #1F2937 50%, #0F172A 100%);
+}
+
+
 
