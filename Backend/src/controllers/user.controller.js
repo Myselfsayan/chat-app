@@ -160,11 +160,13 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 
     // ================= COOKIE OPTIONS =================
-    const options = {
+
+        const options = {
         httpOnly: true,
-        secure: false,        // ⚠️ make false in local if no HTTPS
-        sameSite: "lax"
-    };
+        secure: true,        // ✅ REQUIRED for HTTPS
+        sameSite: "none"     // ✅ REQUIRED for cross-origin
+        };
+        
 
     // ================= RESPONSE =================
     return res
@@ -203,9 +205,9 @@ const logoutUser = asyncHandler(async (req, res) => {
 
     // ================= COOKIE OPTIONS =================
     const options = {
-        httpOnly: true,
-        secure: false,       // ⚠️ true in production (HTTPS)
-        sameSite: "strict"
+    httpOnly: true,
+    secure: true,        // ✅ REQUIRED for HTTPS
+    sameSite: "none"     // ✅ REQUIRED for cross-origin
     };
 
     // ================= RESPONSE =================
