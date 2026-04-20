@@ -59,7 +59,7 @@ console.log("✅ sendMessage FINISHED");
   return selectedUser ? (
     <div className="h-full overflow-scroll relative bg-brand-surface">
       {/* Header */}
-      <div className="flex items-center gap-3 py-3 mx-4 border-b border-brand-border bg-brand-surface">
+      <div className="sticky top-0 z-10 flex items-center gap-3 py-3 mx-4 border-b border-brand-border bg-brand-surface">
         
         <img
           src={selectedUser.avatar || assets.avatar_icon}
