@@ -98,8 +98,8 @@ const registerUser = asyncHandler(async (req, res) => {
     // ================= COOKIE OPTIONS =================
     const options = {
         httpOnly: true,
-        secure: false, // local
-        sameSite: "lax"
+        secure: true,
+        sameSite: "none"
     };
 
     // ================= RESPONSE =================
@@ -307,15 +307,15 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
             httpOnly : true,
             secure : true
         }
-        const {accessToken,newRefreshToken} = await generateAccessandRefreshTokens(user._id)
+        const {accessToken,refreshToken} = await generateAccessandRefreshTokens(user._id)
         return res
         .status(200)
         .cookie("accessToken",accessToken,options)
-        .cookie("refreshToken",newRefreshToken,options)
+        .cookie("refreshToken",refreshToken,options)
         .json(
             new ApiResponse(
                 200,
-                {accessToken,refreshToken:newRefreshToken},
+                {accessToken,refreshToken},
                 "Accesstoken refreshed successfully"
             )
         )
