@@ -249,7 +249,10 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
         req.user._id,
         {
             $set: {
-                avatar: avatar.url
+                avatar: {
+                    url: avatar.secure_url,   // ✅ Use secure_url (https://) to avoid Mixed Content
+                    public_id: avatar.public_id
+                }
             }
         },
         { new: true }

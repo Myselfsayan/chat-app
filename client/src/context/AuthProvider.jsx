@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
         setAuthUser(data.data.user);
         connectSocket(data.data.user);
 
-  axios.defaults.headers.common["token"] = data.data.accessToken;
+  axios.defaults.headers.common["Authorization"] = `Bearer ${data.data.accessToken}`;
         setToken(data.data.accessToken);
         localStorage.setItem("token", data.data.accessToken);
 
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
     // Optional: remove legacy token usage (if still present)
     localStorage.removeItem("token");
     setToken(null);
-    delete axios.defaults.headers.common["token"];
+    delete axios.defaults.headers.common["Authorization"];
 
     // Disconnect socket safely
     socket?.disconnect();
@@ -160,7 +160,7 @@ const AuthProvider = ({ children }) => {
   // ================= INIT AUTH =================
   useEffect(() => {
     if (token) {
-      axios.defaults.headers.common["token"] = token;
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     }
     checkAuth();
   }, []);
