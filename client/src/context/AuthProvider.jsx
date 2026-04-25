@@ -45,7 +45,9 @@ const AuthProvider = ({ children }) => {
   // ================= LOGIN FUNCTION =================
   const login = async (state, credentials) => {
     try {
-      const { data } = await axios.post(`/api/v1/auth/${state}`, credentials);
+      const { data } = await axios.post(`/api/v1/auth/${state}`, credentials, {
+  withCredentials: true
+});
 
       if (data?.success) {
         setAuthUser(data.data.user);
