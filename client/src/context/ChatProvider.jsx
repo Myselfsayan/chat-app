@@ -12,6 +12,26 @@ const [users, setUsers] = useState([]);
 const [selectedUser, setSelectedUser] = useState(null);
 const [unseenMessages, setUnseenMessages] = useState({});
 
+// ================= BROWSER BACK BUTTON (MOBILE) =================
+// When a user is selected, push a history entry so the browser back
+// button intercepts it and returns to sidebar instead of leaving the app.
+useEffect(() => {
+  if (selectedUser) {
+    // Push a "chat open" state into browser history
+    window.history.pushState({ chatOpen: true }, "");
+
+    const handlePopState = () => {
+      setSelectedUser(null);
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
+  }
+}, [selectedUser]);
+
 const { socket, axios } = useContext(AuthContext);
 
 // function to get all users for sidebar
