@@ -6,6 +6,7 @@ import { ChatContext } from '../context/ChatContext.js';
 const RightSidebar = () => {
     const { selectedUser, messages } = useContext(ChatContext);
     const { logout } = useContext(AuthContext);
+    const { onlineUsers} = useContext(AuthContext);
 
     const [msgImages, setMsgImages] = useState([]);
 
@@ -30,7 +31,8 @@ const RightSidebar = () => {
                         alt=""
                         className="w-20 aspect-square rounded-full ring-2 ring-brand-primary/50 glow-primary-sm"
                     />
-                    <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-green-500 ring-2 ring-brand-sidebar shadow-[0_0_6px_2px_rgba(74,222,128,0.5)]"></span>
+                    {onlineUsers.includes(selectedUser._id)?
+                    <span className="absolute bottom-1 right-1 w-3 h-3 rounded-full bg-green-500 ring-2 ring-brand-sidebar shadow-[0_0_6px_2px_rgba(74,222,128,0.5)]"></span>:''}
                 </div>
 
                 <h1 className="text-xl font-semibold text-brand-text mt-1">
