@@ -26,7 +26,7 @@ const RightSidebar = () => {
             <div className="pt-16 flex flex-col items-center gap-2 text-xs font-light px-4">
                 <div className="relative">
                     <img
-                        src={selectedUser?.avatar || assets.avatar_icon}
+                        src={selectedUser?.avatar?.url || assets.avatar_icon}
                         alt=""
                         className="w-20 aspect-square rounded-full ring-2 ring-brand-primary/50 glow-primary-sm"
                     />

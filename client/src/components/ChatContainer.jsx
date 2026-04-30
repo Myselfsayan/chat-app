@@ -62,7 +62,7 @@ console.log("✅ sendMessage FINISHED");
       <div className="sticky top-0 z-10 flex items-center gap-3 py-3 mx-4 border-b border-brand-border bg-brand-surface">
         
         <img
-          src={selectedUser.avatar || assets.avatar_icon}
+          src={selectedUser.avatar?.url || assets.avatar_icon}
           alt=""
           className="w-8 h-8 rounded-full ring-2 ring-brand-primary/40 object-cover"
         />
@@ -117,8 +117,8 @@ console.log("✅ sendMessage FINISHED");
       <img
         src={
           msg.sender?.toString() === authUser._id?.toString()
-            ? authUser?.avatar || assets.avatar_icon
-            : selectedUser?.avatar || assets.avatar_icon
+            ? authUser?.avatar?.url || assets.avatar_icon
+            : selectedUser?.avatar?.url || assets.avatar_icon
         }
         className="w-7 h-7 rounded-full ring-1 ring-brand-border object-cover"
       />
