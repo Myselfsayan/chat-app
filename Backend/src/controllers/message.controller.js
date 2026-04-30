@@ -37,10 +37,16 @@ const getUsersForSidebar = asyncHandler(async(req,res)=>{
         unreadMap.set(item._id.toString(),item.count)
     });
     //Here we merge the unread count with user
-    const usersWithUnread = users.map(user=>({
-        ...user.toObject(),
-        unreadCount : unreadMap.get(user._id.toString()) || 0
-    }))
+    const usersWithUnread = users.map(user => {
+        const obj = user.toObject();
+        // Normalize avatar: MongoDB returns {} for users with no avatar (not null)
+        // Without this, avatar?.url is undefined but avatar is truthy — breaking the fallback
+        if (!obj.avatar?.url) obj.avatar = null;
+        return {
+            ...obj,
+            unreadCount: unreadMap.get(user._id.toString()) || 0
+        };
+    })
 
     return res.status(200).json(
     new ApiResponse(

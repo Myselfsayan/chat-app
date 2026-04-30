@@ -85,7 +85,7 @@ function Sidebar() {
                     className={`relative flex items-center gap-3 p-2 pl-4 rounded-lg cursor-pointer max-sm:text-sm transition-all duration-200 hover:bg-brand-surface/80 ${selectedUser?._id === user._id ? 'bg-brand-surface border border-brand-border glow-primary-sm' : 'border border-transparent'}`}>
 
                         <img
-                            src={user?.avatar?.url || assets.avatar_icon}
+                            src={(user?.avatar?.url) || assets.avatar_icon}
                             alt=""
                             className={`w-[35px] aspect-[1/1] rounded-full ring-2 ${selectedUser?._id === user._id ? 'ring-brand-primary/60' : 'ring-transparent'}`}
                         />
