@@ -24,8 +24,7 @@ function ProfilePage() {
             });
             // Update avatar only if selected
             if (selectedImage) {
-            updateAvatar(selectedImage);
-            navigate("/");
+            await updateAvatar(selectedImage);
             }
 
             navigate("/"); //always redirect after all updates
@@ -53,7 +52,7 @@ function ProfilePage() {
                         accept=".png, .jpg, .jpeg"
                         hidden
                         />
-                        <img src={selectedImage ? URL.createObjectURL(selectedImage) : authUser?.avatar || assets.avatar_icon} 
+                        <img src={selectedImage ? URL.createObjectURL(selectedImage) : authUser?.avatar?.url || assets.avatar_icon} 
                         alt="" className={`w-12 rounded-full  h-12 ring-2 ring-brand-border group-hover:ring-brand-primary/60 transition-all duration-200 ${selectedImage && `rounded-full`}`} />
                         <span className="text-brand-muted text-sm group-hover:text-brand-primary transition-colors duration-200">Upload profile picture</span>
                     </label>
@@ -88,7 +87,7 @@ function ProfilePage() {
                     src={
                         selectedImage
                         ? URL.createObjectURL(selectedImage)
-                        : authUser?.avatar
+                        : authUser?.avatar?.url || assets.avatar_icon
                     }
                     alt=""
                     />
