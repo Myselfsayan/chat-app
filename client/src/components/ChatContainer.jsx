@@ -6,6 +6,7 @@ import { ChatContext } from '../context/ChatContext'
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import toast from 'react-hot-toast';
+import moment from 'moment';
 
 
 const ChatContainer = () => {
@@ -22,26 +23,26 @@ const ChatContainer = () => {
       setInput("");
     }
     const handleSendImage = async (e) => {
-  console.log("🔥 IMAGE HANDLER CALLED");
+  console.log("IMAGE HANDLER CALLED");
 
   const files = e.target.files;
-  console.log("FILES 👉", files);
+  console.log("FILES ", files);
 
   if (!files || files.length === 0) {
-    console.log("❌ No file");
+    console.log(" No file");
     return;
   }
 
   const file = files[0];
-  console.log("FILE 👉", file);
+  console.log("FILE ", file);
 
   const formData = new FormData();
   formData.append("image", file);
 
-  console.log("FORMDATA 👉", [...formData.entries()]);
-  console.log("🚀 CALLING sendMessage...");
+  console.log("FORMDATA ", [...formData.entries()]);
+  console.log(" CALLING sendMessage...");
   await sendMessage(formData);
-console.log("✅ sendMessage FINISHED");
+console.log(" sendMessage FINISHED");
   e.target.value = "";
 };
     useEffect(()=>{
@@ -68,9 +69,21 @@ console.log("✅ sendMessage FINISHED");
         />
 
         <p className="flex-1 text-lg text-brand-text font-medium flex items-center gap-2">
-          {selectedUser.fullName}
-          {onlineUsers.includes(selectedUser._id)?
-          <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_2px_rgba(74,222,128,0.4)]"></span> :''}
+            {selectedUser.fullName}
+
+            {onlineUsers.includes(selectedUser._id) ? (
+              <>
+                <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_2px_rgba(74,222,128,0.4)]"></span>
+
+                <span className="text-sm text-green-500">
+                  Online
+                </span>
+              </>
+            ) : (
+              <span className="text-sm text-gray-400">
+                Last seen {moment(selectedUser.lastSeen).fromNow()}
+              </span>
+            )}
         </p>
 
         <img
