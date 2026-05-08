@@ -68,10 +68,12 @@ console.log(" sendMessage FINISHED");
           className="w-8 h-8 rounded-full ring-2 ring-brand-primary/40 object-cover"
         />
 
-        <p className="flex-1 text-lg text-brand-text font-medium flex items-center gap-2">
+        <div className="flex-1 flex flex-col">
+  
+          <p className="text-lg text-brand-text font-medium flex items-center gap-2">
             {selectedUser.fullName}
 
-            {onlineUsers.includes(selectedUser._id) ? (
+            {onlineUsers.includes(selectedUser._id) && (
               <>
                 <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_6px_2px_rgba(74,222,128,0.4)]"></span>
 
@@ -79,12 +81,16 @@ console.log(" sendMessage FINISHED");
                   Online
                 </span>
               </>
-            ) : (
-              <span className="text-sm text-gray-400">
-                Last seen {moment(selectedUser.lastSeen).fromNow()}
-              </span>
             )}
-        </p>
+          </p>
+
+  {!onlineUsers.includes(selectedUser._id) && (
+    <span className="text-sm text-gray-400">
+      Last seen {moment(selectedUser.lastSeen).fromNow()}
+    </span>
+  )}
+
+</div>
 
         <img
           onClick={() => setSelectedUser(null)}
