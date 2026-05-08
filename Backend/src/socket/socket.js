@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import model from "../models/user.model.js";
+import User from "../models/user.model.js";
 
 let io;
 const userSocketMap = {}; // { userId: socketId }
@@ -13,7 +13,7 @@ const initSocket = (server) => {
     },
   });
 
-  io.on("connection", async(socket) => {
+  io.on("connection", async (socket) => {
     const userId = socket.handshake.query.userId;
 
     if (!userId) {
@@ -22,6 +22,8 @@ const initSocket = (server) => {
     }
 
     console.log("✅ User connected:", userId);
+
+    // ================= SET ONLINE =================
     await User.findByIdAndUpdate(userId, {
       isOnline: true,
     });
@@ -36,9 +38,11 @@ const initSocket = (server) => {
     socket.join(userId);
 
     // ================= DISCONNECT =================
-    socket.on("disconnect",async() => {
+    socket.on("disconnect", async () => {
       console.log("❌ User disconnected:", userId);
+
       await User.findByIdAndUpdate(userId, {
+        isOnline: false,
         lastSeen: new Date(),
       });
 
