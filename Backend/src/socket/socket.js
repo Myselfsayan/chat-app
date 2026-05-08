@@ -1,5 +1,5 @@
 import { Server } from "socket.io";
-import User from "../models/user.model.js";
+import {User} from "../models/user.model.js";
 
 let io;
 const userSocketMap = {}; // { userId: socketId }
