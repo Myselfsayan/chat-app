@@ -13,7 +13,7 @@ const initSocket = (server) => {
     },
   });
 
-  io.on("connection", (socket) => {
+  io.on("connection", async(socket) => {
     const userId = socket.handshake.query.userId;
 
     if (!userId) {
