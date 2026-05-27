@@ -1,30 +1,37 @@
 import dotenv from "dotenv";
+import http from "http";
 import connectDB from "./db/index.js";
 import { app } from "./app.js";
+import { initSocket } from "./socket/socket.js";
 
-dotenv.config({
-  path: "./.env",
-});
+    dotenv.config({
+    path: "./.env"
+    })
 
-const PORT = process.env.PORT || 8000;
+    const PORT = process.env.PORT || 8000;
 
-// ================= START SERVER =================
+    // ================= START SERVER =================
+    const startServer = async () => {
+    try {
+        //  CONNECT DB
+        await connectDB();
+        console.log(" MongoDB connected");
 
-const startServer = async () => {
-  try {
-    // CONNECT DATABASE
-    await connectDB();
-    console.log("MongoDB connected");
+        //  CREATE HTTP SERVER
+        const server = http.createServer(app);
 
-    // START EXPRESS SERVER
-    app.listen(PORT, () => {
-      console.log(`Server running on port: ${PORT}`);
-    });
+        //  INIT SOCKET
+        initSocket(server);
 
-  } catch (error) {
-    console.error("Server start failed:", error.message);
-    process.exit(1);
-  }
+        //  START SERVER
+        server.listen(PORT, () => {
+        console.log(` Server running on port: ${PORT}`);
+        });
+
+    } catch (error) {
+        console.error(" Server start failed:", error.message);
+        process.exit(1);
+    }
 };
 
 startServer();
